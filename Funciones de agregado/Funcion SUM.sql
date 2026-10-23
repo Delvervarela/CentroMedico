@@ -7,4 +7,8 @@ SELECT SUM (monto) From pago
 -- El resultado que nos dara es que sumara todos los mosntos que se encuentran en la tabla pagos.
 
 
---podemos crear un alias para que nos de en una columna especifica.
+--podemos crear un alias para que nos de el resultado en una columna especifica.
+
+--por ejemplo
+
+SELECT SUM (monto) AS totalMonto FROM pago 
