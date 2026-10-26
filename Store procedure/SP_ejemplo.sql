@@ -2,11 +2,12 @@
 --lo que que hace este sp es retornar la informacion de un paciente en base a su idPaciente, ademas de retornar el idPais del paciente
 
 CREATE PROC SP_EJEMPLO (
+            @idpaciente INT
 
 )
 
 AS
- 
+
 SELECT apellido, nombre, idPais, observacionTurno, (SELECT idPais from pais ps where ps.idPais = pa.idPais)
 from paciente pa where idPaciente = @idPaciente
 
