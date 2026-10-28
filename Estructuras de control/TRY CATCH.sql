@@ -14,7 +14,7 @@ END
 
 PRINT 'Sigue ejecutando'
 
---la parte de begin ayuda a evakuar el codigo que tiene dentro
+--la parte de begin ayuda a evaluar el codigo que tiene dentro
 
 BEGIN TRY
 
