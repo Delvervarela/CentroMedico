@@ -110,6 +110,10 @@ on PI.idpaciente = p.idPaciente
 SELECT * FROM @informacionPaciente
 
 
+declare @Pacientes table (id int identity (1, 1), idpaciente paciente, Nombre varchar(50))
+insert into @Pacientes
+select p.idPaciente, p.nombre + ' ' + p.apellido from Paciente P
+select * from @Pacientes
 
 
 

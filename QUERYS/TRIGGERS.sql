@@ -31,7 +31,8 @@ as
 if exists (select idpaciente from PacienteLog
 			where idpaciente = (select idpaciente from inserted))
 
-		Update PacienteLog set fechamodificacion = GETDATE()
+		Update PacienteLog set fechamodificacion = GETDATE(),
+							   Nombre = (select nombre+ ' ' + apellido from inserted)
 			where idpaciente = (select idpaciente from inserted)
 
 else
@@ -77,3 +78,37 @@ else
 
 select * from Paciente
 delete from paciente where idPaciente = 14
+
+----------------------------------------------------
+--Tabla Temporal
+
+declare @Honduras table (id int identity (1, 1) primary key, Departamento varchar (30), Ciudad varchar(30), Municipio varchar (30))
+insert into @Honduras (Departamento, Ciudad, Municipio)
+values ('Francisco Morazan', 'Tegucigalpa', 'Distrito Central')
+select * from @Honduras
+
+Declare @HistorialPaciente table (id int identity (1, 1), idpaciente paciente, Nombre varchar (50), Pais pais, FechaNacimiento datetime, Turno Varchar (30), EstadoTurno varchar(20), FechaTurno datetime, Medico varchar(30), Especialidad varchar (30))
+insert into @HistorialPaciente
+					select P.idPaciente, P.nombre+ ' ' + P.apellido, P.idpais, P.fnacimiento, TP.idTurno, T.estadoTurno,  t.fechaTurno,  m.nombre+ ' ' + m.apellido, e.especialidad 
+					from Paciente P 
+					inner join TurnoPaciente TP
+					on tp.idPaciente = p.idPaciente
+					inner join Turno T
+					on t.idTurno = tp.idTurno
+					inner join Medico M
+					on m.idMedico = tp.idMedico
+					inner join MedicoEspecialidad ME
+					on ME.idMedico = m.idmedico
+					inner join Especialidad E
+					on e.idEspecialidad = me.idEspecialidad
+					
+				
+select * from @HistorialPaciente
+
+
+select * from TurnoPaciente
+select * from TurnoEstado
+select * from Turno
+select * from MedicoEspecialidad
+
+
